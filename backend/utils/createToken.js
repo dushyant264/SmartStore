@@ -8,7 +8,7 @@ const generateToken = (res, userId) => {
   // Set JWT as an HTTP-Only Cookie
   res.cookie('jwt', token, {
     httpOnly: false,
-    secure: true, // Always secure
+    secure: false, // Always secure
     sameSite: 'none', // Allow cross-origin
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     domain: 'https://smart-store-k8n9.vercel.app', // Set your domain
