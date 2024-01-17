@@ -3,10 +3,11 @@ import { BASE_URL } from "../constants";
 
 
 const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL, prepareHeaders: (headers)=>{
-  const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-  if(token){
+  const token = JSON.parse(localStorage.getItem('userInfo'));
+  console.log(token)
+  
     headers.set('authorization', `bearer ${token}`);
-  }
+  
   return headers
 } });
 
