@@ -19,13 +19,14 @@ const createUser = asyncHandler(async (req, res) => {
 
   try {
     await newUser.save();
-    createToken(res, newUser._id);
+    const token =createToken( newUser._id);
 
     res.status(201).json({
       _id: newUser._id,
       username: newUser.username,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
+      token
     });
   } catch (error) {
     res.status(400);
@@ -40,7 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
   console.log(password);
 
   const existingUser = await User.findOne({ email });
-
+  console.log(existingUser);
   if (existingUser) {
     const isPasswordValid = await bcrypt.compare(
       password,
@@ -48,13 +49,14 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 
     if (isPasswordValid) {
-      createToken(res, existingUser._id);
-
+      const token =createToken( existingUser._id);
+      console.log(token)
       res.status(201).json({
         _id: existingUser._id,
         username: existingUser.username,
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
+        token
       });
       return;
     }
